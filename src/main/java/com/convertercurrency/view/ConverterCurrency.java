@@ -1,6 +1,8 @@
 package com.convertercurrency.view;
 
+import com.convertercurrency.ExchangeRateAPI;
 import com.convertercurrency.controller.ExchangeCurrencyService;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 

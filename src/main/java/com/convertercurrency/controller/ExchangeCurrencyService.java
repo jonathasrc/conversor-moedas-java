@@ -1,6 +1,7 @@
 package com.convertercurrency.controller;
 
 
+import com.convertercurrency.ExchangeRateAPI;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -14,15 +15,14 @@ public class ExchangeCurrencyService {
     private static final String API_KEY = "c3723c80b29238d2a509a25b";
 
 
-    public String getRates() throws IOException, InterruptedException {
+    public ExchangeRateAPI getRates() throws IOException, InterruptedException {
         String url_str = "/latest/USD";
         URI uri = URI.create(BASE_URL + API_KEY + "/" + url_str );
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(uri).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        return response.body();
-
+        System.out.println(response.body());
+        return new Gson().fromJson(response.body(), ExchangeRateAPI.class);
     }
 }
