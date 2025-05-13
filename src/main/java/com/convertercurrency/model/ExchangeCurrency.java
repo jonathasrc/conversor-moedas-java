@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExchangeCurrency {
+    public ExchangeRateAPI getExchangeRateAPI() {
+        return exchangeRateAPI;
+    }
+
     ExchangeRateAPI exchangeRateAPI;
     public ExchangeCurrency(ExchangeRateAPI exchangeRateAPI) {
         this.exchangeRateAPI = exchangeRateAPI;
