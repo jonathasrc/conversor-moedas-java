@@ -15,14 +15,18 @@ public class ExchangeCurrencyService {
     private static final String API_KEY = "c3723c80b29238d2a509a25b";
 
 
-    public ExchangeRateAPI getRates() throws IOException, InterruptedException {
-        String url_str = "/latest/USD";
+    public ExchangeRateAPI getRates(String originCurrency ) throws IOException, InterruptedException {
+        String url_str = "/latest/" + originCurrency;
         URI uri = URI.create(BASE_URL + API_KEY + "/" + url_str );
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(uri).build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-        return new Gson().fromJson(response.body(), ExchangeRateAPI.class);
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return new Gson().fromJson(response.body(), ExchangeRateAPI.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Error getting rates from " + originCurrency, e);
+        }
     }
 }
